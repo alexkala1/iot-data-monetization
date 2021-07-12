@@ -12,7 +12,7 @@
 					</v-card-text>
 					<v-divider></v-divider>
 					<v-card-actions>
-						<v-btn rounded color="orange darken-2" :to="`/${i}`">
+						<v-btn rounded color="orange darken-2" :to="`/devices/${i}`">
 							<v-icon left>mdi-chip</v-icon>
 							Go to device
 						</v-btn>
