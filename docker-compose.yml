@@ -1,0 +1,31 @@
+version: '3.3'
+
+services:
+    mongo:
+      image: mongo
+      container_name: mongo
+
+    orion:
+      image: fiware/orion
+      links:
+        - mongo
+      ports:
+        - "1026:1026"
+      command: -dbhost mongo
+
+    server:
+      container_name: express-api
+      build:
+        context: ./server
+      env_file: ./server/.env
+      ports:
+        - "3001:3001"
+      command: ["npm", "dev"]
+
+    client:
+      container_name: nuxt-client
+      build:
+        context: ./client
+      ports:
+        - "3000:3000"
+      command: ["npm", "dev"]
