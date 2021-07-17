@@ -2,7 +2,6 @@ const express = require('express')
 const jwt = require('jsonwebtoken')
 const bcrypt = require('bcrypt')
 const User = require('../model/user')
-const mongoose = require('mongoose')
 
 const router = express.Router()
 
@@ -33,8 +32,6 @@ router.post('/login', async (req, res) => {
 	const user = await User.findOne({
 		email: req.body.email,
 	})
-
-	console.log(user)
 
 	// Check credentials
 	try {
