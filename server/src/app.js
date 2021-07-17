@@ -3,6 +3,7 @@ const morgan = require('morgan');
 const helmet = require('helmet');
 const cors = require('cors');
 const passport = require('passport');
+const iotagentLib = require("iotagent-node-lib")
 
 require('dotenv').config();
 
