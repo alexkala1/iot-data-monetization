@@ -2,8 +2,14 @@ version: '3.3'
 
 services:
     mongo:
-      image: mongo
+      image: mongo:latest
       container_name: mongo
+      # ports:
+      #   - 27017:27017
+      volumes:
+        - mongodb_data_container:/data/db
+      networks: 
+        - test-network
 
     orion:
       image: fiware/orion
@@ -18,9 +24,11 @@ services:
       build:
         context: ./server
       env_file: ./server/.env
+      networks: 
+        - test-network
       ports:
         - "3001:3001"
-      command: ["npm", "dev"]
+      command: "npm run dev"
 
     client:
       container_name: nuxt-client
@@ -28,4 +36,10 @@ services:
         context: ./client
       ports:
         - "3000:3000"
-      command: ["npm", "dev"]
+      command: "npm run dev"
+
+volumes:
+  mongodb_data_container:
+
+networks: 
+  test-network:
