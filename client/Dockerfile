@@ -1,4 +1,4 @@
-FROM node
+FROM node:latest
 
 WORKDIR /usr/src/server
 
@@ -9,5 +9,3 @@ COPY . /usr/src/server
 RUN npm i
 
 EXPOSE 3000
-
-CMD [ "npm", "dev" ]

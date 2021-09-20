@@ -1,45 +1,52 @@
 version: '3.3'
 
-services:
-    mongo:
-      image: mongo:latest
-      container_name: mongo
-      # ports:
-      #   - 27017:27017
-      volumes:
-        - mongodb_data_container:/data/db
-      networks: 
-        - test-network
-
-    orion:
-      image: fiware/orion
-      links:
-        - mongo
-      ports:
-        - "1026:1026"
-      command: -dbhost mongo
-
-    server:
-      container_name: express-api
-      build:
-        context: ./server
-      env_file: ./server/.env
-      networks: 
-        - test-network
-      ports:
-        - "3001:3001"
-      command: "npm run dev"
-
-    client:
-      container_name: nuxt-client
-      build:
-        context: ./client
-      ports:
-        - "3000:3000"
-      command: "npm run dev"
+networks:
+  front:
+#      driver: "overlay"
 
 volumes:
-  mongodb_data_container:
+  mongodata:
+    external: true
+    # driver: "nfs"
 
-networks: 
-  test-network:
+services: 
+  mongo:
+    image: mongo
+    container_name: mongo
+    command: --nojournal
+    networks:
+      - front
+    volumes:
+     - mongodata:/data/db
+
+  orion:
+    image: fiware/orion
+    container_name: orion
+    ports:
+      - "1026:1026"
+    networks:
+      - front
+    command: -dbhost mongo
+
+  server:
+    container_name: express-api
+    build:
+      context: ./server
+    env_file: ./server/.env
+    ports:
+      - "3001:3001"
+    networks:
+      - front
+    command: "npm run dev"
+
+  client:
+    container_name: nuxt-client
+    build:
+      context: ./client
+    ports:
+      - "3000:3000"
+    networks:
+      - front
+    volumes:
+      - ./client:/app/client:rw
+    command: "npm run dev"

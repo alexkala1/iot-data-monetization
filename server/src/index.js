@@ -1,19 +1,19 @@
-const app = require('./app');
-const mongoose = require('mongoose');
+const app = require('./app')
+const mongoose = require('mongoose')
 
-mongoose.connect('mongodb://localhost/iot-monetization', {
-	useNewUrlParser: true,
-	useUnifiedTopology: true
-})
+mongoose
+	.connect('mongodb://mongo/iot-monetization', {
+		useNewUrlParser: true,
+		useUnifiedTopology: true,
+		useFindAndModify: false,
+		useCreateIndex: true,
+	})
 	.then(() => console.log('Database Connected'))
-	.catch(err => console.log(err));
+	.catch((err) => console.log(err))
 
-mongoose.set('useFindAndModify', false);
-mongoose.set('useCreateIndex', true);
-
-const port = process.env.PORT || 5000;
+const port = process.env.PORT || 5000
 app.listen(port, () => {
 	/* eslint-disable no-console */
-	console.log(`Listening: http://localhost:${port}`);
+	console.log(`Listening: http://localhost:${port}`)
 	/* eslint-enable no-console */
-});
+})

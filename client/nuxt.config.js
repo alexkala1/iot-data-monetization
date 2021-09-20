@@ -9,26 +9,29 @@ export default {
 		titleTemplate: '%s - iot-monetization',
 		title: 'iot-monetization',
 		htmlAttrs: {
-			lang: 'en'
+			lang: 'en',
 		},
 		meta: [
 			{ charset: 'utf-8' },
-			{ name: 'viewport', content: 'width=device-width, initial-scale=1' },
+			{
+				name: 'viewport',
+				content: 'width=device-width, initial-scale=1',
+			},
 			{ hid: 'description', name: 'description', content: '' },
-			{ name: 'format-detection', content: 'telephone=no' }
+			{ name: 'format-detection', content: 'telephone=no' },
 		],
-		link: [
-			{ rel: 'icon', type: 'image/x-icon', href: '/favicon.ico' }
-		]
+		link: [{ rel: 'icon', type: 'image/x-icon', href: '/favicon.ico' }],
 	},
 
 	// Global CSS: https://go.nuxtjs.dev/config-css
-	css: [
-	],
+	css: [],
+
+	server: {
+		host: '0', // default: localhost
+	},
 
 	// Plugins to run before rendering page: https://go.nuxtjs.dev/config-plugins
-	plugins: [
-	],
+	plugins: [],
 
 	// Auto import components: https://go.nuxtjs.dev/config-components
 	components: true,
@@ -50,7 +53,7 @@ export default {
 
 	// Axios module configuration: https://go.nuxtjs.dev/config-axios
 	axios: {
-		baseURL: 'http://localhost:3001/api/v1'
+		baseURL: 'http://localhost:3001/api/v1',
 	},
 
 	// Vuetify module configuration: https://go.nuxtjs.dev/config-vuetify
@@ -66,10 +69,10 @@ export default {
 					info: colors.teal.lighten1,
 					warning: colors.amber.base,
 					error: colors.deepOrange.accent4,
-					success: colors.green.accent3
-				}
-			}
-		}
+					success: colors.green.accent3,
+				},
+			},
+		},
 	},
 
 	// router: {
@@ -80,8 +83,16 @@ export default {
 		strategies: {
 			local: {
 				endpoints: {
-					login: { url: '/auth/login', method: 'post', propertyName: 'data.token', },
-					user: { url: '/auth/fetchUser', method: 'get', propertyName: 'user' },
+					login: {
+						url: '/auth/login',
+						method: 'post',
+						propertyName: 'data.token',
+					},
+					user: {
+						url: '/auth/fetchUser',
+						method: 'get',
+						propertyName: 'user',
+					},
 					logout: false,
 				},
 				tokenRequired: true,
@@ -89,14 +100,11 @@ export default {
 				tokenName: 'Authorization',
 				globalToken: true,
 				autoFetchUser: false,
-				autoLogout: true
+				autoLogout: true,
 			},
 		},
 	},
 
-
-
 	// Build Configuration: https://go.nuxtjs.dev/config-build
-	build: {
-	}
+	build: {},
 }

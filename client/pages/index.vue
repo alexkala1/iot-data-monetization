@@ -12,7 +12,26 @@
 	</v-container>
 </template>
 <script>
+import axios from 'axios'
 export default {
 	middleware: ['auth'],
+	data() {
+		return {
+			iotDevices: null,
+		}
+	},
+
+	mounted() {
+		this.getDevices()
+	},
+
+	methods: {
+		async getDevices() {
+			const { data } = await axios.get('http://0.0.0.0:1026')
+
+			this.iotDevices = data
+			console.log(this.iotDevices)
+		},
+	},
 }
 </script>
